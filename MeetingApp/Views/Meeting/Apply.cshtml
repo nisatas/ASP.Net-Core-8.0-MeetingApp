@@ -1,0 +1,44 @@
+@model MeetingApp.Models.UserInfo
+
+@{
+    ViewBag.Title = "Başvuru Formu";
+    Layout = "_Layout2";
+}
+
+<main class="container mt-4">
+    <div class="text-center mb-4">
+        <h1 class="h4 text-primary">Toplantı Katılım Formu</h1>
+    </div>
+    
+    <form method="post" action="/Meeting/Apply" novalidate >
+        <div asp-validation-summary="All" class=""></div>
+        
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Ad Soyad</label>
+            <input asp-for="Name" class="form-control" placeholder="Adınızı girin...">
+        </div>
+        
+        <div class="mb-3">
+            <label asp-for="Phone" class="form-label">Telefon</label>
+            <input asp-for="Phone" class="form-control" placeholder="Telefon numaranızı girin...">
+        </div>
+        
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" placeholder="Email adresinizi girin...">
+        </div>
+        
+        <div class="mb-3">
+            <label asp-for="WillAttend" class="form-label">Katılım Durumu</label>
+            <select asp-for="WillAttend" class="form-select">
+                <option value="">Lütfen Seçiniz.</option>
+                <option value="true">Evet, katılacağım.</option>
+                <option value="false">Hayır, katılmayacağım.</option>
+            </select>
+        </div>
+        
+        <div class="text-center">
+            <button class="btn btn-success w-100" type="submit">Kaydet</button>
+        </div>
+    </form>
+</main>

@@ -1,0 +1,68 @@
+@model List<UserInfo>
+
+    @{
+        ViewBag.Title = "Toplantı Katılım Listesi";
+    }
+    
+    <main class="container mt-4">
+        <div class="text-center mb-4">
+            <h1 class="h4 text-primary">Toplantı Katılım Listesi</h1>
+        </div>
+    
+        <!-- Arama Kutusu -->
+        <div class="row mb-3">
+            <div class="col-md-6 mx-auto">
+                <input type="text" id="searchInput" class="form-control" placeholder="Katılımcı adı ile ara...">
+            </div>
+        </div>
+    
+        <!-- Toplantı Listesi -->
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Ad</th>
+                        <th>Katılım Durumu</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="userTable">
+                    @{int i = 0;}
+                    @foreach(var user in Model){
+                        var durum = user.WillAttend == true ? "Evet":"Hayır";
+                        var className = user.WillAttend == true ? "table-success":"table-danger";
+                        if(user.WillAttend == true){
+                            i++;
+                        }
+                        <tr class="@className">
+                            <td>@user.Name</td>
+                            <td>@durum</td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="/meeting/details/@user.Id">Detay</a>
+                            </td>
+                        </tr>
+                    } 
+                </tbody>
+            </table>
+        </div>
+    
+        <!-- Katılımcı Sayısı Kartı -->
+        <div class="card text-center mt-3">
+            <div class="card-body">
+                <h5 class="card-title">Katılımcı Sayısı: @i</h5>
+                
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#userTable tr");
+            rows.forEach(row => {
+                let name = row.cells[0].textContent.toLowerCase();
+                row.style.display = name.includes(filter) ? "" : "none";
+            });
+        });
+    </script>
+    
